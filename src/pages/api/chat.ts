@@ -1,38 +1,45 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, OpenAIApi } from "openai";
 const configuration = new Configuration({
-    apiKey: "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",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
-type Data = {
-  name: string
+type Conversation = {
+  role: "system" | "user" | "assistant";
+  content: string;
+}[];
+
+type Response = {
+  conversation?: Conversation
 }
+
+type Data = {
+  name: string;
+};
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Response>
 ) {
-  if (req.method === 'POST') {
-    // Get the request data as JSON
-    const data = req.body;
+  if (req.method === "POST") {
+    const conversation = req.body.conversation as Conversation;
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: [{role: "user", content: data}],
+      messages: conversation,
     });
-    console.log(completion.data.choices[0].message);
-    // Do something with the data
+
+    conversation.push(
+      completion.data.choices[0].message ?? { role: "assistant", content: "" }
+    );
+
     const response_data = {
-      message: 'Received POST request with data:',
-      data: completion.data.choices[0].message,
-      name:'r'
-    }
-    console.log(req.body)
+      conversation
+    };
     // Return a JSON response
     res.status(200).json(response_data);
   } else {
-    res.status(405).send({name:"Illegal"});
+    res.status(405).send({});
   }
-  
 }
