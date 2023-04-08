@@ -2,7 +2,7 @@ import {useState} from 'react'
 import StyledContainer from './StyledContainer.jsx'
 
 export default () => {
-    const [isVisible, setIsVisible] = useState(true);
+    const [isVisible, setIsVisible] = useState(false);
     const LANGUAGE_OPTIONS = [
         {language: "English", icon: "/flags_icons/gb.svg"},
         {language: "Chinese", icon: "/flags_icons/cn.svg"},

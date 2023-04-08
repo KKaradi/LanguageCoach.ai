@@ -13,7 +13,7 @@
 }
 
 body {
-  height: 100vh;
+
 }
 
 #centeredContainer {
@@ -22,8 +22,32 @@ body {
   width: 90%;
 }
 
+.chat {
+  margin-top: 3rem;
+
+}
+
+.chatDisplay {
+  height: 60vh;
+  overflow-y: scroll;
+}
+
 .styledContainer {
   
+}
+
+.userInputField {
+
+}
+
+.userInputField textarea {
+  width: 100%;
+  resize: none;
+}
+
+.message:nth-child(even){
+  background-color: rgb(223, 223, 223);
+
 }
 
 #flagIcon {

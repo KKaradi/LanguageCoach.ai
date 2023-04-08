@@ -2,12 +2,12 @@ export async function fetchMessages() {
     const mes = await new Promise(r => r(
         [
             {
-                sender: "me",
-                text: "text"
+                role: "me",
+                content: "text"
             },
             {
-                sender: "you",
-                text: "text2"
+                role: "you",
+                content: "text2"
             },
         ]
     ));
