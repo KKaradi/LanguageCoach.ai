@@ -1,9 +1,6 @@
-import '../styles/globals.css'
 import Home from './index.jsx'
+import '@/styles/globals.css'
 
-export default function Index() {
-    return (
-        <Home/>
-      )
+export default function App({ pageProps }) {
+  return <Home {...pageProps} />
 }
-  
