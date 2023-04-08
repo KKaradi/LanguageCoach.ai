@@ -10,7 +10,7 @@ export default function Chat() {
     //fetchMessages().then(r => messages=r);
 
     return (
-        <div className="chat">
+        <div id='mainContainer'>
             <Dropdown />
             <div className='chat'>
                 <div className='chatDisplay'>

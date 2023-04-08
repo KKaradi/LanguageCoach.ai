@@ -13,5 +13,21 @@
 }
 
 body {
- 
+  height: 100vh;
+}
+
+#centeredContainer {
+  margin: 0 auto;
+  max-width: 720px;
+  width: 90%;
+}
+
+.styledContainer {
+  
+}
+
+#flagIcon {
+  width: 30px;
+  overflow: hidden;
+  border-radius:50% ;
 }

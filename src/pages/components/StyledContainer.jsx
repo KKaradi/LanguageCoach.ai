@@ -1,7 +1,7 @@
 
 
-export default ({text}) => {
+export default ({children}) => {
     return (
-        <div className="styledContainer">{text}</div>
+        <div className="styledContainer">{children}</div>
     )
 }
