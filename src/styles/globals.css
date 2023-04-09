@@ -22,7 +22,6 @@
 
 body {
   height: 100vh;
-  overflow: hidden;
   background: rgb(152,209,244);
   background: linear-gradient(212deg, rgba(152,209,244,1) 0%, rgba(162,162,212,1) 100%);
 }
@@ -212,10 +211,36 @@ nav a:hover::after {
   color: white;
   background-color: #5f5fda;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
 }
 
 .styledButton:hover {
   background-color: #4a4acd;
+}
+
+.tempMsg .messageText {
+  position: relative;
+}
+.tempMsg .messageText::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 3rem;
+  transform-origin: right;
+  background-color: rgb(255, 255, 255);
+  animation: 2s infinite forwards talking;
+
+}
+
+@keyframes talking {
+  from {
+    transform: scaleX(100%);
+  }
+
+  to {
+    transform: scaleX(0%);
+  }
 }
 
 @media only screen and (max-width: 1310px) {

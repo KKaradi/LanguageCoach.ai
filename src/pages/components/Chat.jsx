@@ -3,16 +3,17 @@ import Message from "./Message.jsx";
 import UserInputField from "./InputField.jsx";
 import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {languageConfig} from "../utils/language-config.js"
 
 
-export async function submitMessage(message, conversation, setConversation) {
+async function submitMessage(message, conversation, setConversation) {
   conversation.push({ role: "user", content: message });
   createCompletion(conversation, setConversation);
+  
 }
 
-export async function createCompletion(conversation, setConversation) {
+async function createCompletion(conversation, setConversation) {
   console.log("creating completion");
   try {
     console.log("messages before", conversation);
@@ -48,9 +49,18 @@ export default function Chat() {
     "English"
   );
 
+  const [recording, setRecording] = useState(false);
+
+  const chatDisplay = useRef(null);
+
+
   useEffect(() => {
     createCompletion(conversation, setConversation);
   }, []);
+
+  useEffect(() => {
+    chatDisplay.current.scrollTop = 999;
+  }, [conversation])
 
 
   return (
@@ -60,15 +70,17 @@ export default function Chat() {
         languageHandler={(newLanguage)=>changeLanguage(newLanguage,setCurrentLanguage,setConversation)}
       />
       <div className="chatArea">
-        <div className="chatDisplay">
+        <div ref={chatDisplay} className="chatDisplay">
           {conversation.map((msg,indx) => (
-            <Message key = {indx} body={msg} />
+            <Message key={indx} body={msg} />
           ))}
+          {recording && <Message key='tempMsg' body={{role:'User', content:'.........'}} state='pending'/>}
         </div>
       </div>
       <div className="userInputField">
         <InputField
           languageCode={languageConfig[currentLanguage].code}
+          recordingState={{recording, setRecording}}
           submitHandler={(message) => {
             submitMessage(message, conversation, setConversation);
           }}

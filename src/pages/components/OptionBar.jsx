@@ -1,8 +1,8 @@
 import speechToText from "@/pages/api/stt";
 import {useState} from "react";
 
-export default function OptionBar({submitHandler, languageCode}) {
-    const [recording, setRecording] = useState(false);
+export default function OptionBar({submitHandler, languageCode, recordingState}) {
+    const {recording, setRecording} = recordingState;
     async function onText(text) {
         submitHandler(text);
     }
@@ -13,7 +13,7 @@ export default function OptionBar({submitHandler, languageCode}) {
                 e.preventDefault();
                 speechToText(languageCode, setRecording, onText);
                 setTimeout(() => {setRecording(true)}, 800);
-            }} className="styledButton">{recording ? "Recording..." : "Record"}</button>
+            }} className="styledButton" disabled={recording}>{recording ? "Recording..." : "Record"}</button>
             <input className="styledButton" type="submit" value="Send" />
             <button className="styledButton" type="reset">Regenerate</button>
         </div>

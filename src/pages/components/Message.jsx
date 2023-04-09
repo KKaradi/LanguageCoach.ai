@@ -1,11 +1,8 @@
 
-export default function Message({body}) {
+export default function Message({body, state}) {
     const {role, content} = body;
-    // if (role === "system") {
-    //     return null;
-    // }
     return (
-        <div className="message" sender={role}>
+        <div className={"message " + (state==='pending'?'tempMsg':'')} sender={role}>
             <span className="senderLabel">{role}</span>
             <p className="messageText">{content}</p>
         </div>
