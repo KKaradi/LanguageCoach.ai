@@ -62,7 +62,7 @@ export default function Chat() {
                     </div>
                 </div>
                 <div className="userInputField">
-                    <InputField />
+                    <InputField onSubmit = {(message) => {submitMessage(message, conversation, setConversation)}} />
                 </div>
             </div>
     
