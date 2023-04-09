@@ -16,6 +16,7 @@ export async function submitMessage(
   continuousConversation,
   currentLanguage
 ) {
+  
   conversation.push({ role: "user", content: message });
   createCompletion(
     conversation,
