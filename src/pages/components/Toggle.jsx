@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-export default function Toggle({ label }) {
+export default function Toggle({ label, setContinuousConversation }) {
   const [on, setOn] = useState(false);
 
   function sliderHandler(e) {
     e.stopPropagation();
     setOn(!on);
+    setContinuousConversation(!on);
   }
 
   return (
