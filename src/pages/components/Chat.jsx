@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Message from "./Message.jsx";
 import UserInputField from "./InputField.jsx";
 import Dropdown from "./Dropdown.jsx";
@@ -49,12 +50,12 @@ export default function Chat() {
     ORDER_A_DRINK_CONVERSATION_SEED
   );
   const [currentLanguage, setCurrentLanguage] = useState(
-    "Spanish"
+    "English"
   );
 
   useEffect(() => {
     createCompletion(conversation, setConversation);
-  }, []);
+  }, [currentLanguage]);
 
 
   return (
