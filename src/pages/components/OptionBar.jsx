@@ -15,6 +15,7 @@ export default function OptionBar({submitHandler, languageCode}) {
                 setTimeout(() => {setRecording(true)}, 800);
             }} className="styledButton">{recording ? "Recording..." : "Record"}</button>
             <input className="styledButton" type="submit" value="Send" />
+            <button className="styledButton" type="reset">Regenerate</button>
         </div>
     )
 }

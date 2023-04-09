@@ -169,6 +169,8 @@ nav a:hover::after {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
 }
 
+
+
 .userInputField textarea:focus {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px, inset 0px 0px 10px rgba(0,0,5,0.3);
 }
@@ -219,3 +221,43 @@ nav a:hover::after {
   background-color: #4a4acd;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 75vw;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  
+  background: rgb(152,209,244);
+  background: linear-gradient(212deg, rgba(152,209,244,1) 0%, rgba(162,162,212,1) 100%);
+
+  animation: slideIn 0.5s ease-out forwards;
+  animation-timing-function: ease-in-out;
+
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(300px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
