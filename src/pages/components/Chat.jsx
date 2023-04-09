@@ -35,6 +35,8 @@ export async function createCompletion(
   continuousConversation,
   currentLanguage
 ) {
+  console.log('creating completion')
+  console.log('top',currentLanguage)
   try {
     const response = await fetch("/api/chat", {
       method: "POST",
@@ -48,12 +50,12 @@ export async function createCompletion(
     const responseConversation = json.conversation;
     if (responseConversation !== undefined) {
       setConversation(responseConversation);
-
+      console.log(languageConfig,currentLanguage)
       if (!audioPlaying) {
         setAudioPlaying(true);
         textToSpeech(
           responseConversation[responseConversation.length - 1].content,
-          "es"
+          languageConfig[currentLanguage].code
         ).then((e) => {
           const audioCtx = new AudioContext();
 
@@ -82,14 +84,16 @@ export async function changeLanguage(
   setCurrentLanguage,
   setConversation,
   audioPlaying,
-  setAudioPlaying
+  setAudioPlaying,
+  continuousConversation
 ) {
   setCurrentLanguage(newLanguage);
   createCompletion(
     languageConfig[newLanguage].seed,
     setConversation,
-    audioPlaying,
+    false,
     setAudioPlaying,
+    continuousConversation,
     newLanguage
   );
 }
@@ -99,6 +103,7 @@ export async function regenerate(
   setConversation,
   currentLanguage,
   audioPlaying,
+  continuousConversation,
   setAudioPlaying
 ) {
   if (text === "") {
@@ -107,6 +112,7 @@ export async function regenerate(
       setConversation,
       audioPlaying,
       setAudioPlaying,
+      continuousConversation,
       currentLanguage
     );
   } else {
@@ -115,6 +121,7 @@ export async function regenerate(
       setConversation,
       audioPlaying,
       setAudioPlaying,
+      continuousConversation,
       currentLanguage
     );
   }
@@ -127,7 +134,6 @@ export default function Chat() {
   );
   const [currentLanguage, setCurrentLanguage] = useState("English");
   const [regenerationPopUpOpen, setRegenerationPopUpOpen] = useState(false);
-
   const [recording, setRecording] = useState(false);
 
   const chatDisplay = useRef(null);
@@ -138,6 +144,7 @@ export default function Chat() {
       setConversation,
       audioPlaying,
       setAudioPlaying,
+      false,
       "English"
     );
   }, []);
@@ -156,7 +163,8 @@ export default function Chat() {
             setCurrentLanguage,
             setConversation,
             audioPlaying,
-            setAudioPlaying
+            setAudioPlaying,
+            false
           )
         }
       />
@@ -186,6 +194,7 @@ export default function Chat() {
               setConversation,
               audioPlaying,
               setAudioPlaying,
+              false,
               currentLanguage
             );
           }}
@@ -198,6 +207,7 @@ export default function Chat() {
               setConversation,
               currentLanguage,
               audioPlaying,
+              false,
               setAudioPlaying
             );
             setRegenerationPopUpOpen(false);
