@@ -9,7 +9,7 @@ const languageToIconMap = {
   French: "/flags_icons/fr.svg",
 };
 
-export default function Dropdown({ currentLanguage, setCurrentLanguage }) {
+export default function Dropdown({ currentLanguage, languageHandler }) {
   const [isVisible, setIsVisible] = useState(false);
 
   const LANGUAGE_OPTIONS = [
@@ -32,7 +32,7 @@ export default function Dropdown({ currentLanguage, setCurrentLanguage }) {
       </div>
       <div className="optionList">
         {LANGUAGE_OPTIONS.map((l) => (
-          <StyledContainer key = {l.language} clickHandler={() => setCurrentLanguage(l.language)}>
+          <StyledContainer key = {l.language} clickHandler={() => languageHandler(l.language)}>
             <span >{l.language}</span>
             <img id="flagIcon" src={l.icon} alt="language icon" />
           </StyledContainer>
