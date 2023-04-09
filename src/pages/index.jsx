@@ -3,13 +3,13 @@ import Chat from "./components/Chat.jsx"
 
 export default function Home() {
     return (
-        <div id='centeredContainer'>
-            <header>
-                <Navbar/>
-            </header>
-            <main>
-               <Chat />
-            </main>
-        </div>
+        <>
+            <Navbar/>
+            <div id='centeredContainer'>
+                <main>
+                <Chat />
+                </main>
+            </div>
+        </>
     )
 }

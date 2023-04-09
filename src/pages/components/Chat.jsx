@@ -1,8 +1,10 @@
 import Message from "./Message.jsx";
+import UserInputField from "./InputField.jsx";
 import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
 import { useState, useEffect } from "react";
 import textToSpeech from "@/pages/api/tts";
+import {languageConfig} from "../utils/language-config.js"
 
 
 export async function submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying){
@@ -43,43 +45,53 @@ export async function createCompletion(conversation, setConversation, audioPlayi
 
       }
     }
-
     // console.log('g',response,messages)
   } catch (error) {
     console.error(error);
   }
 }
 
-const ORDER_A_DRINK_CONVERSATION_SEED = [
-  {
-    role: "system",
-    content:
-      "You are a Spanish chat bot roleplaying as a Spanish Barista. The user will submit messages in Spanish and as an assistant your job is to respond.",
-  },
-];
+export async function changeLanguage(newLanguage, setCurrentLanguage,setConversation){
+    setCurrentLanguage(newLanguage)
+    createCompletion(languageConfig[newLanguage].seed, setConversation);
+}
 
 //[{role:"user","system","assistant", content:"string"}]
 export default function Chat() {
-  const [conversation, setConversation] = useState(ORDER_A_DRINK_CONVERSATION_SEED);
   const [audioPlaying, setAudioPlaying] = useState(false);
+  const [conversation, setConversation] = useState(
+    languageConfig["English"].seed
+  );
+  const [currentLanguage, setCurrentLanguage] = useState(
+    "English"
+  );
 
   useEffect(() => {
     createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying);
   }, []);
 
+
   return (
-    <>
-      <Dropdown />
-      <div className="chat">
+    <div className="chat">
+      <Dropdown
+        currentLanguage={currentLanguage}
+        languageHandler={(newLanguage)=>changeLanguage(newLanguage,setCurrentLanguage,setConversation)}
+      />
+      <div className="chatArea">
         <div className="chatDisplay">
           {conversation.map((msg,indx) => (
-            <Message key={indx} body={msg} />
+            <Message key = {indx} body={msg} />
           ))}
         </div>
-        <div className="userInputField">
-          <InputField onSubmit = {(message)=>{submitMessage(message,conversation,setConversation, audioPlaying, setAudioPlaying)}} />
-        </div>
       </div>
-    </>
+      <div className="userInputField">
+        <InputField
+            languageCode={languageConfig[currentLanguage].code}
+            submitHandler={(message) => {
+              submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying);
+            }}
+        />
+      </div>
+    </div>
   );
 }
