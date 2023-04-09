@@ -47,6 +47,7 @@ export default function Chat() {
   const [currentLanguage, setCurrentLanguage] = useState(
     "English"
   );
+  const [regenerationPopUpOpen, setRegenerationPopUpOpen] = useState(false);
 
   useEffect(() => {
     createCompletion(conversation, setConversation);
@@ -69,11 +70,13 @@ export default function Chat() {
       <div className="userInputField">
         <InputField
           languageCode={languageConfig[currentLanguage].code}
+          resetHandler={()=>setRegenerationPopUpOpen(true)}
           submitHandler={(message) => {
             submitMessage(message, conversation, setConversation);
           }}
         />
-        {/* <RegenerationPopUp/> */}
+        <RegenerationPopUp/>
+        {/* {regenerationPopUpOpen?<RegenerationPopUp onSubmitHandler={()=>setRegenerationPopUpOpen(false)}/>:<div></div>}   */}
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
-export default function RegenerationPopUp({ }) {
+export default function RegenerationPopUp({onSubmitHandler}) {
   return (
-    <div class="overlay">
-      <div class="popup">
+    <div className="overlay">
+      <div className="popupClosed" >
         <h2>Regenerate</h2>
-        <form>
-          <textarea className = "userInputFieldPopup" type="text" id="name" name="name" placeholder="Enter a custom prompt or leave blank for a default prompt"/>
+        <form onSubmit={onSubmitHandler}>
+          <textarea type="text" placeholder="Enter a custom prompt or leave blank for a default prompt"/>
+          <input className="styledButton" type="submit" value="Send" />
         </form>
       </div>
     </div>

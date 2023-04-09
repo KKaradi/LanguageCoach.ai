@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import OptionBar from './OptionBar.jsx'
 
 
-export default function InputField({submitHandler, languageCode}) {
+export default function InputField({submitHandler, resetHandler, languageCode}) {
     const textbox = useRef(null);
 
     function onSubmitHandler(e) {
@@ -13,8 +13,9 @@ export default function InputField({submitHandler, languageCode}) {
 
     function onResetHandler(e){
         e.preventDefault();
+        resetHandler();
         console.log('reset')
-    }
+    }   
 
     return ( 
         <form onSubmit={onSubmitHandler} onReset={onResetHandler} action="">
