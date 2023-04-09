@@ -13,13 +13,8 @@ export default function InputField({submitHandler, languageCode}) {
     }
     return ( 
         <form onSubmit={onSubmitHandler} action="">
-<<<<<<< HEAD
             <textarea ref={textbox} name="" id="" cols="30" rows="10" />
             <OptionBar submitHandler={submitHandler} languageCode={languageCode}/>
-=======
-            <textarea placeholder='Type something...' ref={textbox} name="" id="" cols="30" rows="10" />
-            <OptionBar submitHandler={onSubmit}/>
->>>>>>> 170b99baa76527762344350ce27d84bdaae5623f
         </form>
     )
 }

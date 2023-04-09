@@ -32,8 +32,8 @@ export default function Dropdown({ currentLanguage, setCurrentLanguage }) {
       </div>
       <div className="optionList">
         {LANGUAGE_OPTIONS.map((l) => (
-          <StyledContainer clickHandler={() => setCurrentLanguage(l.language)}>
-            <span>{l.language}</span>
+          <StyledContainer key = {l.language} clickHandler={() => setCurrentLanguage(l.language)}>
+            <span >{l.language}</span>
             <img id="flagIcon" src={l.icon} alt="language icon" />
           </StyledContainer>
         ))}
