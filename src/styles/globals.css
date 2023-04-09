@@ -32,6 +32,39 @@ body {
   height: 90%;
 }
 
+nav {
+  height: 75px;
+  padding: 1rem 3rem;
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav a {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 1px;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+}
+
+nav a::after { 
+  content: '';
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  top: 0%;
+  height: 100%;
+  width: 0%;
+  background-color: rgba(58, 141, 218, 0.332);
+  transition: width 100ms ease-in-out;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
 /* Track */
 .chat ::-webkit-scrollbar-track {
   background-color: #f0f0f0;
@@ -47,11 +80,10 @@ body {
 #centeredContainer {
   margin: 0 auto;
   max-width: 900px;
-  width: 90%;
+  width: 80%;
 }
 
 .chat {
-  margin-top: 3rem;
   position: relative;
 }
 
@@ -164,7 +196,7 @@ body {
 
 #flagIcon {
   width: 30px;
-  overflow: hidden;
+  overflow-y: hidden;
   border-radius:50% ;
 }
 

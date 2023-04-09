@@ -12,12 +12,14 @@ const languageToIconMap = {
 export default function Dropdown({ currentLanguage, languageHandler }) {
   const [isVisible, setIsVisible] = useState(false);
 
-  const LANGUAGE_OPTIONS = [
-    { language: "English", icon: "/flags_icons/gb.svg" },
-    { language: "Chinese", icon: "/flags_icons/cn.svg" },
-    { language: "Spanish", icon: "/flags_icons/es.svg" },
-    { language: "French", icon: "/flags_icons/fr.svg" },
-  ];
+    const LANGUAGE_OPTIONS = [
+        {language: "English", icon: "/flags_icons/gb.svg"},
+        {language: "Chinese", icon: "/flags_icons/cn.svg"},
+        {language: "Spanish", icon: "/flags_icons/es.svg"},
+        {language: "French", icon: "/flags_icons/fr.svg"},
+        {language: "Japanese", icon: "/flags_icons/jp.svg"}
+
+    ]
 
   function toggleDropdown() {
     setIsVisible(!isVisible);
