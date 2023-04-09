@@ -1,19 +1,17 @@
 import Message from "./Message.jsx";
-import UserInputField from "./InputField.jsx";
 import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
 import { useState, useEffect } from "react";
+import textToSpeech from "@/pages/api/tts";
 
 
-export async function submitMessage(message, conversation, setConversation){
-    conversation.push({role:"user",content:message})
-    createCompletion(conversation,setConversation)
+export async function submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying){
+    conversation.push({role:"user",content:message});
+    createCompletion(conversation,setConversation, audioPlaying, setAudioPlaying);
 }
 
-export async function createCompletion(conversation, setConversation) {
-  console.log("creating completion");
+export async function createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying) {
   try {
-    console.log('messages before',conversation)
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: {
@@ -24,10 +22,28 @@ export async function createCompletion(conversation, setConversation) {
 
     const json = await response.json();
     const responseConversation = json.conversation;
-    console.log('response conver',responseConversation)
     if (responseConversation !== undefined) {
       setConversation(responseConversation);
+
+      if (!audioPlaying) {
+        setAudioPlaying(true);
+        textToSpeech(responseConversation[responseConversation.length - 1].content, "es").then((e) => {
+          const audioCtx = new AudioContext();
+
+          audioCtx.decodeAudioData(e, function (buffer) {
+            const source = audioCtx.createBufferSource();
+            source.buffer = buffer;
+            source.connect(audioCtx.destination);
+            source.addEventListener('ended', () => {
+              setAudioPlaying(false);
+            });
+            source.start();
+          });
+        });
+
+      }
     }
+
     // console.log('g',response,messages)
   } catch (error) {
     console.error(error);
@@ -45,9 +61,10 @@ const ORDER_A_DRINK_CONVERSATION_SEED = [
 //[{role:"user","system","assistant", content:"string"}]
 export default function Chat() {
   const [conversation, setConversation] = useState(ORDER_A_DRINK_CONVERSATION_SEED);
+  const [audioPlaying, setAudioPlaying] = useState(false);
 
   useEffect(() => {
-    createCompletion(conversation, setConversation);
+    createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying);
   }, []);
 
   return (
@@ -60,7 +77,7 @@ export default function Chat() {
           ))}
         </div>
         <div className="userInputField">
-          <InputField onSubmit = {(message)=>{submitMessage(message,conversation,setConversation)}} />
+          <InputField onSubmit = {(message)=>{submitMessage(message,conversation,setConversation, audioPlaying, setAudioPlaying)}} />
         </div>
       </div>
     </>
