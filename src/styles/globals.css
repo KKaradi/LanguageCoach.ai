@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@200;400&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -8,7 +8,7 @@
 
 * {
   box-sizing:border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Barlow', sans-serif;
   font-size: 1.15rem;
 
 }
@@ -46,7 +46,7 @@ body {
 
 #centeredContainer {
   margin: 0 auto;
-  max-width: 720px;
+  max-width: 900px;
   width: 90%;
 }
 
@@ -124,10 +124,6 @@ body {
   padding-right: 0.5rem;
 }
 
-.senderLabel {
-  text-transform: capitalize;
-}
-
 
 .userInputField textarea {
   outline: none;
@@ -145,9 +141,25 @@ body {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px, inset 0px 0px 10px rgba(0,0,5,0.3);
 }
 
+.message {
+  padding: 1rem;
+}
+
+.message[sender="assistant"] {
+  background-color: #f0f0f0;
+}
+
 .message:not(:last-child){
   border-bottom: 1px solid #d9d9d9;
+}
 
+.message .senderLabel {
+  text-transform: capitalize;
+}
+
+.message .messageText {
+  font-size: 18px;
+  margin: 10px auto;
 }
 
 #flagIcon {
@@ -174,3 +186,4 @@ body {
 .styledButton:hover {
   background-color: #4a4acd;
 }
+

@@ -13,7 +13,7 @@ export default function InputField(onSubmit) {
     }
     return ( 
         <form onSubmit={onSubmitHandler} action="">
-            <textarea ref={textbox} name="" id="" cols="30" rows="10" />
+            <textarea placeholder='Type something...' ref={textbox} name="" id="" cols="30" rows="10" />
             <OptionBar submitHandler={onSubmit}/>
         </form>
     )
