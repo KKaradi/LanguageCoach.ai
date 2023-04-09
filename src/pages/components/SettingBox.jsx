@@ -3,7 +3,7 @@ import { useState } from 'react'
 import ChatSetting from './ChatSetting.jsx';
 import Dropdown from './Dropdown.jsx';
 
-export default function settingBox({languageState, languageHandler}) {
+export default function SettingBox({languageState, languageHandler}) {
     const [visibleId, setVisibleId] = useState(0);
     
     return (
