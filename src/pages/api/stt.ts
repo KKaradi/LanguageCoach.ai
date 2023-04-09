@@ -1,5 +1,3 @@
-import {submitMessage, } from "@/pages/components/Chat";
-
 const sdk = require("microsoft-cognitiveservices-speech-sdk");
 
 export default async function speechToText(language, setRecording, onText) {

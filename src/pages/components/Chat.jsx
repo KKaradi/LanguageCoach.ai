@@ -7,12 +7,12 @@ import { useState, useEffect, useRef } from "react";
 import textToSpeech from "@/pages/api/tts";
 
 
-export async function submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying){
+export async function submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying, continuousConversation){
     conversation.push({role:"user",content:message});
-    createCompletion(conversation,setConversation, audioPlaying, setAudioPlaying);
+    createCompletion(conversation,setConversation, audioPlaying, setAudioPlaying, continuousConversation);
 }
 
-export async function createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying) {
+export async function createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying, continuousConversation) {
   try {
     const response = await fetch("/api/chat", {
       method: "POST",
@@ -37,6 +37,9 @@ export async function createCompletion(conversation, setConversation, audioPlayi
             source.buffer = buffer;
             source.addEventListener('ended', () => {
               setAudioPlaying(false);
+              if (continuousConversation) {
+                document.getElementById("recordButton").click();
+              }
             });
             source.start();
           });
@@ -76,6 +79,10 @@ export default function Chat() {
     languageConfig["English"].seed
   );
   const [currentLanguage, setCurrentLanguage] = useState("English");
+  const [continuousConversation, setContinuousConversation] = useState(false);
+  function getContinuousConversation() {
+    return continuousConversation;
+  }
   const [regenerationPopUpOpen, setRegenerationPopUpOpen] = useState(false);
 
   const [recording, setRecording] = useState(false);
@@ -84,7 +91,7 @@ export default function Chat() {
 
 
   useEffect(() => {
-    createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying);
+    createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying, continuousConversation);
   }, []);
 
   useEffect(() => {
@@ -113,8 +120,9 @@ export default function Chat() {
           languageCode={languageConfig[currentLanguage].code}
           resetHandler={() => setRegenerationPopUpOpen(true)}
           recordingState={{recording, setRecording}}
+          conversationState = {continuousConversation}
           submitHandler={(message) => {
-            submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying);
+            submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying, continuousConversation);
           }}
         />
         <RegenerationPopUp
