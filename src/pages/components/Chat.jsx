@@ -30,7 +30,6 @@ export async function createCompletion(conversation, setConversation) {
     if (responseConversation !== undefined) {
       setConversation(responseConversation);
     }
-    // console.log('g',response,messages)
   } catch (error) {
     console.error(error);
   }
@@ -41,9 +40,6 @@ export async function changeLanguage(newLanguage, setCurrentLanguage,setConversa
     createCompletion(languageConfig[newLanguage].seed, setConversation);
 }
 
-
-
-//[{role:"user","system","assistant", content:"string"}]
 export default function Chat() {
   const [conversation, setConversation] = useState(
     languageConfig["English"].seed

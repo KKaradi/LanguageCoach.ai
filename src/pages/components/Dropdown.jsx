@@ -30,7 +30,6 @@ export default function Dropdown({ currentLanguage, languageHandler }) {
         {Object.keys(languageConfig).map((l) => (
           <StyledContainer key = {l} clickHandler={() => languageHandler(l)}>
             <span >{l}</span>
-            {console.log(languageToIconMap[l])}
             <img id="flagIcon" src={languageToIconMap[l]} alt="language icon" />
           </StyledContainer>
         ))}
