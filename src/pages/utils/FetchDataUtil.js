@@ -1,4 +1,4 @@
-export async function fetchMessages() {
+export default async function fetchMessages() {
     const mes = await new Promise(r => r(
         [
             {

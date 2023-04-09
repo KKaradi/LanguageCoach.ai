@@ -52,3 +52,5 @@ export const languageConfig = {
     }
 
 }
+
+export default function lang() {}
