@@ -1,6 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, OpenAIApi } from "openai";
+import textToSpeech from "@/pages/api/tts";
+
 const configuration = new Configuration({
   apiKey: "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",
 });

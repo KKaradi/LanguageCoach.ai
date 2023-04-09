@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import OptionBar from './OptionBar.jsx'
 
 
-export default function InputField({submitHandler, resetHandler, languageCode}) {
+export default function InputField({submitHandler, resetHandler, languageCode, recordingState}) {
     const textbox = useRef(null);
 
     function onSubmitHandler(e) {
@@ -17,10 +17,16 @@ export default function InputField({submitHandler, resetHandler, languageCode}) 
         console.log('reset')
     }   
 
+    function keyPressHandler(e) {
+        if (e.keyCode === 13) {
+            onSubmitHandler(e);
+        }
+    }
+
     return ( 
         <form onSubmit={onSubmitHandler} onReset={onResetHandler} action="">
-            <textarea ref={textbox} name="" id="" cols="30" rows="10" placeholder='Type a message here or record one below.'/>
-            <OptionBar submitHandler={submitHandler} languageCode={languageCode}/>
+            <textarea onKeyDown={keyPressHandler} ref={textbox} name="" id="" cols="30" rows="10" placeholder='Type a message here or record one below.'/>
+            <OptionBar submitHandler={submitHandler} languageCode={languageCode} recordingState={recordingState}/>
         </form>
     )
 }

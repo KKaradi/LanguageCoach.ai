@@ -22,7 +22,6 @@
 
 body {
   height: 100vh;
-  overflow: hidden;
   background: rgb(152,209,244);
   background: linear-gradient(212deg, rgba(152,209,244,1) 0%, rgba(162,162,212,1) 100%);
 }
@@ -94,7 +93,6 @@ nav a:hover::after {
   width: 150px;
   /* width: 25px; */
 }
-
 
 .optionList>* {
   margin-block: 3px;
@@ -208,6 +206,7 @@ nav a:hover::after {
   gap: 1rem;
 }
 
+
 .styledButton {
   padding: 0.25rem 1rem ;
   border-radius: 0.7rem;
@@ -215,6 +214,7 @@ nav a:hover::after {
   color: white;
   background-color: #5f5fda;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
 }
 
 .styledButton:hover {
@@ -260,4 +260,61 @@ nav a:hover::after {
     transform: translateY(0);
     opacity: 1;
   }
+}
+.tempMsg .messageText {
+  position: relative;
+}
+.tempMsg .messageText::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 3rem;
+  transform-origin: right;
+  background-color: rgb(255, 255, 255);
+  animation: 2s infinite forwards talking;
+
+}
+
+@keyframes talking {
+  from {
+    transform: scaleX(100%);
+  }
+
+  to {
+    transform: scaleX(0%);
+  }
+}
+
+@media only screen and (max-width: 1310px) {
+  .languageDropdown {
+    left: 0%;
+    top: -8%;
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+
+  .languageDropdown .styledContainer {
+    margin: 0;
+  }
+
+  .chat{
+    margin-top: 3rem;
+  }
+
+  .currentOption {
+    margin-right: 1rem;
+    width: 3rem;
+  }
+
+  .optionList {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    
+  }
+  
+  
 }
