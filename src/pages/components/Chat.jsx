@@ -1,8 +1,7 @@
 import Message from "./Message.jsx";
-import UserInputField from "./InputField.jsx";
 import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import textToSpeech from "@/pages/api/tts";
 import {languageConfig} from "../utils/language-config.js"
 
@@ -35,7 +34,6 @@ export async function createCompletion(conversation, setConversation, audioPlayi
           audioCtx.decodeAudioData(e, function (buffer) {
             const source = audioCtx.createBufferSource();
             source.buffer = buffer;
-            source.connect(audioCtx.destination);
             source.addEventListener('ended', () => {
               setAudioPlaying(false);
             });
