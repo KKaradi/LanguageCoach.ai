@@ -9,10 +9,15 @@ export default function InputField({submitHandler, languageCode}) {
         e.preventDefault(); 
         submitHandler(textbox.current.value)
         textbox.current.value = "";
-        console.log(textbox.current.value)
     }
+
+    function onResetHandler(e){
+        e.preventDefault();
+        console.log('reset')
+    }
+
     return ( 
-        <form onSubmit={onSubmitHandler} action="">
+        <form onSubmit={onSubmitHandler} onReset={onResetHandler} action="">
             <textarea ref={textbox} name="" id="" cols="30" rows="10" />
             <OptionBar submitHandler={submitHandler} languageCode={languageCode}/>
         </form>
