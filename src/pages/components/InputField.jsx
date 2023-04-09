@@ -16,9 +16,15 @@ export default function InputField({submitHandler, languageCode, recordingState}
         console.log('reset')
     }
 
+    function keyPressHandler(e) {
+        if (e.keyCode === 13) {
+            onSubmitHandler(e);
+        }
+    }
+
     return ( 
         <form onSubmit={onSubmitHandler} onReset={onResetHandler} action="">
-            <textarea placeholder='Type something...' ref={textbox} name="" id="" cols="30" rows="10" />
+            <textarea onKeyDown={keyPressHandler} placeholder='Type something...' ref={textbox} name="" id="" cols="30" rows="10" />
             <OptionBar submitHandler={submitHandler} languageCode={languageCode} recordingState={recordingState}/>
         </form>
     )
