@@ -4,16 +4,15 @@ import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
 import { useState, useEffect } from "react";
 
-
-export async function submitMessage(message, conversation, setConversation){
-    conversation.push({role:"user",content:message})
-    createCompletion(conversation,setConversation)
+export async function submitMessage(message, conversation, setConversation) {
+  conversation.push({ role: "user", content: message });
+  createCompletion(conversation, setConversation);
 }
 
 export async function createCompletion(conversation, setConversation) {
   console.log("creating completion");
   try {
-    console.log('messages before',conversation)
+    console.log("messages before", conversation);
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: {
@@ -24,7 +23,7 @@ export async function createCompletion(conversation, setConversation) {
 
     const json = await response.json();
     const responseConversation = json.conversation;
-    console.log('response conver',responseConversation)
+    console.log("response conver", responseConversation);
     if (responseConversation !== undefined) {
       setConversation(responseConversation);
     }
@@ -44,27 +43,38 @@ const ORDER_A_DRINK_CONVERSATION_SEED = [
 
 //[{role:"user","system","assistant", content:"string"}]
 export default function Chat() {
-  const [conversation, setConversation] = useState(ORDER_A_DRINK_CONVERSATION_SEED);
+  const [conversation, setConversation] = useState(
+    ORDER_A_DRINK_CONVERSATION_SEED
+  );
+  const [currentLanguage, setCurrentLanguage] = useState(
+    "Spanish"
+  );
 
   useEffect(() => {
     createCompletion(conversation, setConversation);
   }, []);
 
-    return (
-        
-            <div className='chat'>
-                <Dropdown />
-                <div className="chatArea">
-                    <div className='chatDisplay'>
-                        {conversation.map( msg => (
-                            <Message body={msg} />
-                        ))}
-                    </div>
-                </div>
-                <div className="userInputField">
-                    <InputField onSubmit = {(message) => {submitMessage(message, conversation, setConversation)}} />
-                </div>
-            </div>
-    
-    )
+
+  return (
+    <div className="chat">
+      <Dropdown
+        currentLanguage={currentLanguage}
+        setCurrentLanguage={setCurrentLanguage}
+      />
+      <div className="chatArea">
+        <div className="chatDisplay">
+          {conversation.map((msg,indx) => (
+            <Message key = {indx} body={msg} />
+          ))}
+        </div>
+      </div>
+      <div className="userInputField">
+        <InputField
+          onSubmit={(message) => {
+            submitMessage(message, conversation, setConversation);
+          }}
+        />
+      </div>
+    </div>
+  );
 }
