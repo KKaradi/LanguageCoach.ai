@@ -27,14 +27,14 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     const conversation = req.body.conversation as Conversation;
-    const completion = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: conversation,
-    });
-
-    conversation.push(
-        completion.data.choices[0].message ?? { role: "assistant", content: "" }
-    );
+    // const completion = await openai.createChatCompletion({
+    //   model: "gpt-3.5-turbo",
+    //   messages: conversation,
+    // });
+    //
+    // conversation.push(
+    //     completion.data.choices[0].message ?? { role: "assistant", content: "" }
+    // );
 
     const response_data = {
       conversation
