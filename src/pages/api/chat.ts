@@ -31,7 +31,7 @@ export default async function handler(
     //   model: "gpt-3.5-turbo",
     //   messages: conversation,
     // });
-    //
+
     // conversation.push(
     //     completion.data.choices[0].message ?? { role: "assistant", content: "" }
     // );
