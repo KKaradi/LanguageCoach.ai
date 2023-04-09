@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Message from "./Message.jsx";
 import UserInputField from "./InputField.jsx";
 import Dropdown from "./Dropdown.jsx";
@@ -16,7 +15,6 @@ async function submitMessage(message, conversation, setConversation) {
 async function createCompletion(conversation, setConversation) {
   console.log("creating completion");
   try {
-    console.log("messages before", conversation);
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: {
@@ -27,10 +25,28 @@ async function createCompletion(conversation, setConversation) {
 
     const json = await response.json();
     const responseConversation = json.conversation;
-    console.log("response conver", responseConversation);
     if (responseConversation !== undefined) {
       setConversation(responseConversation);
+
+      if (!audioPlaying) {
+        setAudioPlaying(true);
+        textToSpeech(responseConversation[responseConversation.length - 1].content, "es").then((e) => {
+          const audioCtx = new AudioContext();
+
+          audioCtx.decodeAudioData(e, function (buffer) {
+            const source = audioCtx.createBufferSource();
+            source.buffer = buffer;
+            source.connect(audioCtx.destination);
+            source.addEventListener('ended', () => {
+              setAudioPlaying(false);
+            });
+            source.start();
+          });
+        });
+
+      }
     }
+    // console.log('g',response,messages)
   } catch (error) {
     console.error(error);
   }
@@ -41,7 +57,9 @@ export async function changeLanguage(newLanguage, setCurrentLanguage,setConversa
     createCompletion(languageConfig[newLanguage].seed, setConversation);
 }
 
+//[{role:"user","system","assistant", content:"string"}]
 export default function Chat() {
+  const [audioPlaying, setAudioPlaying] = useState(false);
   const [conversation, setConversation] = useState(
     languageConfig["English"].seed
   );
@@ -55,7 +73,7 @@ export default function Chat() {
 
 
   useEffect(() => {
-    createCompletion(conversation, setConversation);
+    createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying);
   }, []);
 
   useEffect(() => {
