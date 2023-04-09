@@ -79,10 +79,6 @@ export default function Chat() {
     languageConfig["English"].seed
   );
   const [currentLanguage, setCurrentLanguage] = useState("English");
-  const [continuousConversation, setContinuousConversation] = useState(false);
-  function getContinuousConversation() {
-    return continuousConversation;
-  }
   const [regenerationPopUpOpen, setRegenerationPopUpOpen] = useState(false);
 
   const [recording, setRecording] = useState(false);
@@ -91,7 +87,7 @@ export default function Chat() {
 
 
   useEffect(() => {
-    createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying, continuousConversation);
+    createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying);
   }, []);
 
   useEffect(() => {
@@ -120,9 +116,8 @@ export default function Chat() {
           languageCode={languageConfig[currentLanguage].code}
           resetHandler={() => setRegenerationPopUpOpen(true)}
           recordingState={{recording, setRecording}}
-          conversationState = {continuousConversation}
           submitHandler={(message) => {
-            submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying, continuousConversation);
+            submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying);
           }}
         />
         <RegenerationPopUp
