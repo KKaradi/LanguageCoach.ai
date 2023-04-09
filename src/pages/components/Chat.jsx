@@ -5,7 +5,7 @@ import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
 import { useState, useEffect } from "react";
 import {languageConfig} from "../utils/language-config.js"
-
+import RegenerationPopUp from "./RegenerationPopUp.jsx"
 
 export async function submitMessage(message, conversation, setConversation) {
   conversation.push({ role: "user", content: message });
@@ -73,6 +73,7 @@ export default function Chat() {
             submitMessage(message, conversation, setConversation);
           }}
         />
+        {/* <RegenerationPopUp/> */}
       </div>
     </div>
   );
