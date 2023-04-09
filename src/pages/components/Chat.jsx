@@ -4,8 +4,10 @@ import UserInputField from "./InputField.jsx";
 import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
 import { useState, useEffect } from "react";
-import {languageConfig} from "../utils/language-config.js"
-import RegenerationPopUp from "./RegenerationPopUp.jsx"
+import { languageConfig } from "../utils/language-config.js";
+import RegenerationPopUp from "./RegenerationPopUp.jsx";
+
+
 
 export async function submitMessage(message, conversation, setConversation) {
   conversation.push({ role: "user", content: message });
@@ -13,9 +15,7 @@ export async function submitMessage(message, conversation, setConversation) {
 }
 
 export async function createCompletion(conversation, setConversation) {
-  console.log("creating completion");
   try {
-    console.log("messages before", conversation);
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: {
@@ -26,7 +26,7 @@ export async function createCompletion(conversation, setConversation) {
 
     const json = await response.json();
     const responseConversation = json.conversation;
-    console.log("response conver", responseConversation);
+    // console.log("response conver", responseConversation);
     if (responseConversation !== undefined) {
       setConversation(responseConversation);
     }
@@ -35,48 +35,66 @@ export async function createCompletion(conversation, setConversation) {
   }
 }
 
-export async function changeLanguage(newLanguage, setCurrentLanguage,setConversation){
-    setCurrentLanguage(newLanguage)
-    createCompletion(languageConfig[newLanguage].seed, setConversation);
+export async function changeLanguage(
+  newLanguage,
+  setCurrentLanguage,
+  setConversation
+) {
+  setCurrentLanguage(newLanguage);
+  createCompletion(languageConfig[newLanguage].seed, setConversation);
+  
+}
+
+export async function regenerate(text,setConversation,currentLanguage){
+  if(text === ""){
+    createCompletion(languageConfig[currentLanguage].seed, setConversation);
+  }else{
+    console.log('t;',text)
+    createCompletion([{role:'system',content:text}], setConversation);
+  }
 }
 
 export default function Chat() {
   const [conversation, setConversation] = useState(
     languageConfig["English"].seed
   );
-  const [currentLanguage, setCurrentLanguage] = useState(
-    "English"
-  );
+  const [currentLanguage, setCurrentLanguage] = useState("English");
   const [regenerationPopUpOpen, setRegenerationPopUpOpen] = useState(false);
 
   useEffect(() => {
     createCompletion(conversation, setConversation);
   }, []);
 
-
   return (
     <div className="chat">
       <Dropdown
         currentLanguage={currentLanguage}
-        languageHandler={(newLanguage)=>changeLanguage(newLanguage,setCurrentLanguage,setConversation)}
+        languageHandler={(newLanguage) =>
+          changeLanguage(newLanguage, setCurrentLanguage, setConversation)
+        }
       />
       <div className="chatArea">
         <div className="chatDisplay">
-          {conversation.map((msg,indx) => (
-            <Message key = {indx} body={msg} />
+          {conversation.map((msg, indx) => (
+            <Message key={indx} body={msg} />
           ))}
         </div>
       </div>
       <div className="userInputField">
         <InputField
           languageCode={languageConfig[currentLanguage].code}
-          resetHandler={()=>setRegenerationPopUpOpen(true)}
+          resetHandler={() => setRegenerationPopUpOpen(true)}
           submitHandler={(message) => {
             submitMessage(message, conversation, setConversation);
           }}
         />
-        <RegenerationPopUp/>
-        {/* {regenerationPopUpOpen?<RegenerationPopUp onSubmitHandler={()=>setRegenerationPopUpOpen(false)}/>:<div></div>}   */}
+        <RegenerationPopUp
+          regenerationPopUpOpen={regenerationPopUpOpen}
+          submitHandler={(text) => {
+            regenerate(text,setConversation,currentLanguage);
+            setRegenerationPopUpOpen(false);
+          }}
+        />
       </div>
     </div>
   );

@@ -235,7 +235,7 @@ nav a:hover::after {
   animation: fadeIn 0.5s ease-out forwards;
 }
 
-.popupOpen {
+.popup {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
@@ -248,56 +248,7 @@ nav a:hover::after {
 
   animation: slideIn 0.5s ease-out forwards;
   animation-timing-function: ease-in-out;
-  /* visibility: hidden;
-  opacity: 0; */
-}
 
-.popupClosed {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 75vw;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  color: white;
-  
-  background: rgb(152,209,244);
-  background: linear-gradient(212deg, rgba(152,209,244,1) 0%, rgba(162,162,212,1) 100%);
-  /* visibility: hidden;
-  opacity: 0; */
-
-  animation: slideIn 0.5s ease-out backwards;
-  animation-timing-function: ease-in-out;
-  /* visibility: hidden;
-  opacity: 0; */
-}
-
-
-
-@keyframes slide-in {
-  from {
-    transform: translate(-50%, -200%);
-  }
-  to {
-    transform: translate(-50%, -50%);
-  }
-}
-
-@keyframes slide-out {
-  from {
-    transform: translate(-50%, -50%);
-  }
-  to {
-    transform: translate(-50%, -200%);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 @keyframes slideIn {
