@@ -2,8 +2,8 @@
 export default function OptionBar() {
     return (
         <div className="optionBar">
-            <button>Record</button>
-            <input type="submit" value="Send" />
+            <button className="styledButton">Record</button>
+            <input className="styledButton" type="submit" value="Send" />
         </div>
     )
 }

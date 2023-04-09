@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
 
+* {
+  box-sizing:border-box;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.15rem;
+
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -13,7 +21,27 @@
 }
 
 body {
+  height: 100vh;
+  overflow: hidden;
+  background: rgb(152,209,244);
+  background: linear-gradient(212deg, rgba(152,209,244,1) 0%, rgba(162,162,212,1) 100%);
+}
 
+.chat ::-webkit-scrollbar {
+  width: 7px;
+  height: 90%;
+}
+
+/* Track */
+.chat ::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  border-radius: 7px;
+}
+ 
+/* Handle */
+.chat ::-webkit-scrollbar-thumb {
+  background: #d4d4d4; 
+  border-radius: 7px;
 }
 
 #centeredContainer {
@@ -24,12 +52,25 @@ body {
 
 .chat {
   margin-top: 3rem;
+}
 
+.chatArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 1rem;
+  height: 60vh;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
 }
 
 .chatDisplay {
-  height: 60vh;
+  height: 95%;
+  margin: auto;
   overflow-y: scroll;
+  width: 95%;
+  padding-right: 0.5rem;
 }
 
 .styledContainer {
@@ -41,12 +82,23 @@ body {
 }
 
 .userInputField textarea {
+  outline: none;
+  border: none;
   width: 100%;
   resize: none;
+  padding: 1rem;
+  height: 20vh;
+  border-radius: 10px;
+  margin-top: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
 }
 
-.message:nth-child(even){
-  background-color: rgb(223, 223, 223);
+.userInputField textarea:focus {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px, inset 0px 0px 10px rgba(0,0,5,0.3);
+}
+
+.message:not(:last-child){
+  border-bottom: 1px solid #d9d9d9;
 
 }
 
@@ -54,4 +106,22 @@ body {
   width: 30px;
   overflow: hidden;
   border-radius:50% ;
+}
+
+.optionBar {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.styledButton {
+  padding: 0.25rem 1rem ;
+  border-radius: 0.7rem;
+  border: none;
+  color: white;
+  background-color: #5f5fda;
+}
+
+.styledButton:hover {
+  background-color: #4a4acd;
 }

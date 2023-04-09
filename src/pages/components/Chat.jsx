@@ -20,10 +20,12 @@ export default function Chat() {
         <>
             <Dropdown />
             <div className='chat'>
-                <div className='chatDisplay'>
-                    {messages.map( msg => (
-                        <Message body={msg} />
-                    ))}
+                <div className='chatArea'>
+                    <div className='chatDisplay'>
+                        {messages.map( msg => (
+                            <Message body={msg} />
+                        ))}
+                    </div>
                 </div>
                 <div className="userInputField">
                     <InputField />
