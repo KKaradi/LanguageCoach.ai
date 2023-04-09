@@ -11,28 +11,28 @@ const languageToIconMap = {
   Japanese: "flags_icons/jp.svg"
 };
 
-export default function Dropdown({ currentLanguage, languageHandler }) {
-  const [isVisible, setIsVisible] = useState(false);
+export default function Dropdown({ currentLanguage, languageHandler, visibleElm }) {
+  const {visibleId, setVisibleId} = visibleElm;
 
 
   function toggleDropdown() {
-    setIsVisible(!isVisible);
+    setVisibleId(visibleId===1?0:1);
   }
 
   return (
-    <div className={"languageDropdown " + (isVisible ? "expanded" : "")}>
-      <div onClick={toggleDropdown} className="currentOption">
+    <div className={"dropdownList settings " + (visibleId===1 ? "expanded" : "")}>
+      <div onClick={toggleDropdown} className="dropdownToggle">
         <StyledContainer>
           <img id="flagIcon" src={languageToIconMap[currentLanguage]} alt="language icon" />
         </StyledContainer>
-      </div>
-      <div className="optionList">
-        {Object.keys(languageConfig).map((l) => (
-          <StyledContainer key = {l} clickHandler={() => languageHandler(l)}>
-            <span >{l}</span>
-            <img id="flagIcon" src={languageToIconMap[l]} alt="language icon" />
-          </StyledContainer>
-        ))}
+        <div className="optionList">
+            {Object.keys(languageConfig).map((l) => (
+            <StyledContainer key = {l} clickHandler={() => languageHandler(l)}>
+                <span >{l}</span>
+                <img id="flagIcon" src={languageToIconMap[l]} alt="language icon" />
+            </StyledContainer>
+            ))}
+        </div>
       </div>
     </div>
   );

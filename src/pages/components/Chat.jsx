@@ -4,7 +4,7 @@ import InputField from "./InputField.jsx";
 import { useState, useEffect, useRef } from "react";
 import textToSpeech from "@/pages/api/tts";
 import {languageConfig} from "../utils/language-config.js"
-
+import SettingBox from './SettingBox.jsx'
 
 export async function submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying){
     conversation.push({role:"user",content:message});
@@ -80,8 +80,8 @@ export default function Chat() {
 
   return (
     <div className="chat">
-      <Dropdown
-        currentLanguage={currentLanguage}
+      <SettingBox 
+        languageState={currentLanguage} 
         languageHandler={(newLanguage)=>changeLanguage(newLanguage,setCurrentLanguage,setConversation)}
       />
       <div className="chatArea">
