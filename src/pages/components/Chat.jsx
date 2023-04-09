@@ -5,6 +5,8 @@ import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
 import { useState, useEffect } from "react";
 import {languageConfig} from "../utils/language-config.js"
+
+
 export async function submitMessage(message, conversation, setConversation) {
   conversation.push({ role: "user", content: message });
   createCompletion(conversation, setConversation);
@@ -35,20 +37,17 @@ export async function createCompletion(conversation, setConversation) {
   }
 }
 
+export async function changeLanguage(newLanguage, setCurrentLanguage,setConversation){
+    setCurrentLanguage(newLanguage)
+    createCompletion(languageConfig[newLanguage].seed, setConversation);
+}
 
 
-const ORDER_A_DRINK_CONVERSATION_SEED = [
-  {
-    role: "system",
-    content:
-      "You are a Spanish chat bot roleplaying as a Spanish Barista. The user will submit messages in Spanish and as an assistant your job is to respond.",
-  },
-];
 
 //[{role:"user","system","assistant", content:"string"}]
 export default function Chat() {
   const [conversation, setConversation] = useState(
-    ORDER_A_DRINK_CONVERSATION_SEED
+    languageConfig["English"].seed
   );
   const [currentLanguage, setCurrentLanguage] = useState(
     "English"
@@ -56,14 +55,14 @@ export default function Chat() {
 
   useEffect(() => {
     createCompletion(conversation, setConversation);
-  }, [currentLanguage]);
+  }, []);
 
 
   return (
     <div className="chat">
       <Dropdown
         currentLanguage={currentLanguage}
-        setCurrentLanguage={setCurrentLanguage}
+        languageHandler={(newLanguage)=>changeLanguage(newLanguage,setCurrentLanguage,setConversation)}
       />
       <div className="chatArea">
         <div className="chatDisplay">
