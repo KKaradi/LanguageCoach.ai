@@ -3,6 +3,7 @@ import {submitMessage, } from "@/pages/components/Chat";
 const sdk = require("microsoft-cognitiveservices-speech-sdk");
 
 export default async function speechToText(language, setRecording, onText) {
+    console.log('starting language',language)
     const speechConfig = sdk.SpeechConfig.fromSubscription("8a573047d17e4d4b9d7308d74ea7dbbb", "eastus");
     speechConfig.speechRecognitionLanguage = language;
 

@@ -3,7 +3,7 @@ import UserInputField from "./InputField.jsx";
 import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
 import { useState, useEffect } from "react";
-
+import {languageConfig} from "../utils/language-config.js"
 export async function submitMessage(message, conversation, setConversation) {
   conversation.push({ role: "user", content: message });
   createCompletion(conversation, setConversation);
@@ -32,6 +32,8 @@ export async function createCompletion(conversation, setConversation) {
     console.error(error);
   }
 }
+
+
 
 const ORDER_A_DRINK_CONVERSATION_SEED = [
   {
@@ -70,7 +72,8 @@ export default function Chat() {
       </div>
       <div className="userInputField">
         <InputField
-          onSubmit={(message) => {
+          languageCode={languageConfig[currentLanguage]}
+          submitHandler={(message) => {
             submitMessage(message, conversation, setConversation);
           }}
         />
