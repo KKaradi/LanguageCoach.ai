@@ -2,7 +2,7 @@
 import StyledContainer from "./StyledContainer.jsx";
 import Toggle from "./Toggle.jsx"
 
-export default function ChatSetting({visibleElm}) {
+export default function ChatSetting({visibleElm, setContinuousConversation}) {
     const {visibleId, setVisibleId} = visibleElm;
 
     function toggleDropdown() {
@@ -17,7 +17,7 @@ export default function ChatSetting({visibleElm}) {
             </StyledContainer>
             <div className="optionList">
                 <StyledContainer> 
-                <Toggle label='Continuous Conversation'/>
+                <Toggle label='Continuous Conversation' setContinuousConversation={setContinuousConversation}/>
                 </StyledContainer>
             </div>
           </div>

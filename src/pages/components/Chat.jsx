@@ -51,7 +51,7 @@ export async function createCompletion(
     if (responseConversation !== undefined) {
       setConversation(responseConversation);
       console.log(languageConfig, currentLanguage);
-      // if (!audioPlaying) {
+      if (!audioPlaying) {
         setAudioPlaying(true);
         textToSpeech(
           responseConversation[responseConversation.length - 1].content,
@@ -65,13 +65,13 @@ export async function createCompletion(
             source.addEventListener("ended", () => {
               setAudioPlaying(false);
               if (continuousConversation) {
-                document.getElementById("recordButton").click();
+                setTimeout(() => {document.getElementById("recordButton").click()}, 300);
               }
             });
             source.start();
           });
         });
-      // }
+      }
     }
     // console.log('g',response,messages)
   } catch (error) {
@@ -133,21 +133,11 @@ export default function Chat() {
     languageConfig["English"].seed
   );
   const [currentLanguage, setCurrentLanguage] = useState("English");
+  const [continuousConversation, setContinuousConversation] = useState(false);
   const [regenerationPopUpOpen, setRegenerationPopUpOpen] = useState(false);
   const [recording, setRecording] = useState(false);
   const [startPopUpOpen, setStartPopUpOpen] = useState(true);
   const chatDisplay = useRef(null);
-
-  // useEffect(() => {
-  //   createCompletion(
-  //     conversation,
-  //     setConversation,
-  //     audioPlaying,
-  //     setAudioPlaying,
-  //     false,
-  //     "English"
-  //   );
-  // }, []);
 
   useEffect(() => {
     chatDisplay.current.scrollTop = 999;
@@ -164,9 +154,10 @@ export default function Chat() {
             setConversation,
             audioPlaying,
             setAudioPlaying,
-            false
+            continuousConversation
           )
         }
+        setContinuousConversation={setContinuousConversation}
       />
       <div className="chatArea">
         <div ref={chatDisplay} className="chatDisplay">
@@ -194,7 +185,7 @@ export default function Chat() {
               setConversation,
               audioPlaying,
               setAudioPlaying,
-              false,
+              continuousConversation,
               currentLanguage
             );
           }}
@@ -207,7 +198,7 @@ export default function Chat() {
               setConversation,
               currentLanguage,
               audioPlaying,
-              false,
+              continuousConversation,
               setAudioPlaying
             );
             setRegenerationPopUpOpen(false);
@@ -222,7 +213,7 @@ export default function Chat() {
                 setConversation,
                 audioPlaying,
                 setAudioPlaying,
-                false,
+                continuousConversation,
                 "English"
               )
             }

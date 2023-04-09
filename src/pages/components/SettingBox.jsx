@@ -3,7 +3,7 @@ import { useState } from 'react'
 import ChatSetting from './ChatSetting.jsx';
 import Dropdown from './Dropdown.jsx';
 
-export default function SettingBox({languageState, languageHandler}) {
+export default function SettingBox({languageState, languageHandler, setContinuousConversation}) {
     const [visibleId, setVisibleId] = useState(0);
     
     return (
@@ -15,6 +15,7 @@ export default function SettingBox({languageState, languageHandler}) {
             />
             <ChatSetting
                 visibleElm={{visibleId, setVisibleId}}
+                setContinuousConversation={setContinuousConversation}
             />
         </div>
     );
