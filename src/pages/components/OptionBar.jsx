@@ -11,7 +11,9 @@ export default function OptionBar() {
                 speechToText("en-us", setRecording);
                 setTimeout(() => {setRecording(true)}, 800);
             }}>{recording ? "Recording..." : "Record"}</button>
-            <input type="submit" value="Send" />
+            <input type="submit" value="Send" onClick={(e) => {
+                e.preventDefault();
+            }} />
         </div>
     )
 }
