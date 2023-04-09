@@ -9,6 +9,34 @@ export async function fetchMessages() {
                 role: "you",
                 content: "text2"
             },
+            {
+                role: "you",
+                content: "text2"
+            },
+            {
+                role: "you",
+                content: "text2"
+            },
+            {
+                role: "you",
+                content: "text2"
+            },
+            {
+                role: "you",
+                content: "text2"
+            },
+            {
+                role: "you",
+                content: "text2"
+            },
+            {
+                role: "you",
+                content: "text2"
+            },
+            {
+                role: "you",
+                content: "text2"
+            }
         ]
     ));
     return mes

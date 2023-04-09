@@ -1,7 +1,7 @@
 
 
-export default ({children}) => {
+export default ({children, clickHandler}) => {
     return (
-        <div className="styledContainer">{children}</div>
+        <div onClick={clickHandler} className="styledContainer">{children}</div>
     )
 }

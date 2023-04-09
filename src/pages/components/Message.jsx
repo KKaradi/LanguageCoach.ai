@@ -5,7 +5,7 @@ export default function Message({body}) {
     //     return null;
     // }
     return (
-        <div className="message">
+        <div className="message" sender={role}>
             <span className="senderLabel">{role}</span>
             <p className="messageText">{content}</p>
         </div>
