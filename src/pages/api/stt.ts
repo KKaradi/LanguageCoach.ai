@@ -1,7 +1,7 @@
 const sdk = require("microsoft-cognitiveservices-speech-sdk");
 
-async function speechToText(language) {
-    const speechConfig = sdk.SpeechConfig.fromSubscription(process.env.SPEECH_KEY, process.env.SPEECH_REGION);
+export default async function speechToText(language, setRecording) {
+    const speechConfig = sdk.SpeechConfig.fromSubscription("8a573047d17e4d4b9d7308d74ea7dbbb", "eastus");
     speechConfig.speechRecognitionLanguage = language;
 
     let audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
@@ -10,6 +10,8 @@ async function speechToText(language) {
     speechRecognizer.recognizeOnceAsync(result => {
         switch (result.reason) {
             case sdk.ResultReason.RecognizedSpeech:
+                console.log(`TEXT: ${result.text}`);
+                setRecording(false);
                 break;
             case sdk.ResultReason.NoMatch:
                 console.log("NOMATCH: Speech could not be recognized.");
@@ -26,6 +28,5 @@ async function speechToText(language) {
                 break;
         }
         speechRecognizer.close();
-        return result.text;
     });
 }
