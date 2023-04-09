@@ -1,17 +1,19 @@
 import Message from "./Message.jsx";
 import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
+import { languageConfig } from "../utils/language-config.js";
+import RegenerationPopUp from "./RegenerationPopUp.jsx";
 import { useState, useEffect, useRef } from "react";
 import textToSpeech from "@/pages/api/tts";
 import {languageConfig} from "../utils/language-config.js"
 import SettingBox from './SettingBox.jsx'
 
-export async function submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying){
+export async function submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying, continuousConversation){
     conversation.push({role:"user",content:message});
-    createCompletion(conversation,setConversation, audioPlaying, setAudioPlaying);
+    createCompletion(conversation,setConversation, audioPlaying, setAudioPlaying, continuousConversation);
 }
 
-export async function createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying) {
+export async function createCompletion(conversation, setConversation, audioPlaying, setAudioPlaying, continuousConversation) {
   try {
     const response = await fetch("/api/chat", {
       method: "POST",
@@ -36,6 +38,9 @@ export async function createCompletion(conversation, setConversation, audioPlayi
             source.buffer = buffer;
             source.addEventListener('ended', () => {
               setAudioPlaying(false);
+              if (continuousConversation) {
+                document.getElementById("recordButton").click();
+              }
             });
             source.start();
           });
@@ -49,9 +54,23 @@ export async function createCompletion(conversation, setConversation, audioPlayi
   }
 }
 
-export async function changeLanguage(newLanguage, setCurrentLanguage,setConversation){
-    setCurrentLanguage(newLanguage)
-    createCompletion(languageConfig[newLanguage].seed, setConversation);
+export async function changeLanguage(
+  newLanguage,
+  setCurrentLanguage,
+  setConversation
+) {
+  setCurrentLanguage(newLanguage);
+  createCompletion(languageConfig[newLanguage].seed, setConversation);
+  
+}
+
+export async function regenerate(text,setConversation,currentLanguage){
+  if(text === ""){
+    createCompletion(languageConfig[currentLanguage].seed, setConversation);
+  }else{
+    console.log('t;',text)
+    createCompletion([{role:'system',content:text}], setConversation);
+  }
 }
 
 //[{role:"user","system","assistant", content:"string"}]
@@ -60,9 +79,8 @@ export default function Chat() {
   const [conversation, setConversation] = useState(
     languageConfig["English"].seed
   );
-  const [currentLanguage, setCurrentLanguage] = useState(
-    "English"
-  );
+  const [currentLanguage, setCurrentLanguage] = useState("English");
+  const [regenerationPopUpOpen, setRegenerationPopUpOpen] = useState(false);
 
   const [recording, setRecording] = useState(false);
 
@@ -95,9 +113,17 @@ export default function Chat() {
       <div className="userInputField">
         <InputField
           languageCode={languageConfig[currentLanguage].code}
+          resetHandler={() => setRegenerationPopUpOpen(true)}
           recordingState={{recording, setRecording}}
           submitHandler={(message) => {
             submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying);
+          }}
+        />
+        <RegenerationPopUp
+          regenerationPopUpOpen={regenerationPopUpOpen}
+          submitHandler={(text) => {
+            regenerate(text,setConversation,currentLanguage);
+            setRegenerationPopUpOpen(false);
           }}
         />
       </div>
