@@ -4,7 +4,14 @@ import Dropdown from "./Dropdown.jsx";
 import InputField from "./InputField.jsx";
 import { useState, useEffect } from "react";
 
-async function createCompletion(conversation, setConversation) {
+
+
+export async function submitMessage(message,conversation,setConversation){
+    conversation.push({role:"user",content:message})
+    createCompletion(conversation,setConversation)
+}
+
+export  async function createCompletion(conversation, setConversation) {
   console.log("creating completion");
   try {
     console.log('messages before',conversation)

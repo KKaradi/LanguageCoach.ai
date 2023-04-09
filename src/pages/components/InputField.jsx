@@ -1,6 +1,7 @@
 import OptionBar from './OptionBar.jsx'
 
-export default function InputField() {
+
+export default function InputField(onSubmit) {
 
     return ( 
         <form action="">
