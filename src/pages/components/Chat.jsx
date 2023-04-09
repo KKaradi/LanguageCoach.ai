@@ -6,7 +6,7 @@ import RegenerationPopUp from "./RegenerationPopUp.jsx";
 import { useState, useEffect, useRef } from "react";
 import textToSpeech from "@/pages/api/tts";
 import SettingBox from "./SettingBox.jsx";
-
+import StartOverlay from "./StartOverlay.jsx";
 export async function submitMessage(
   message,
   conversation,
@@ -35,8 +35,8 @@ export async function createCompletion(
   continuousConversation,
   currentLanguage
 ) {
-  console.log('creating completion')
-  console.log('top',currentLanguage)
+  console.log("creating completion");
+  console.log("top", currentLanguage);
   try {
     const response = await fetch("/api/chat", {
       method: "POST",
@@ -50,8 +50,8 @@ export async function createCompletion(
     const responseConversation = json.conversation;
     if (responseConversation !== undefined) {
       setConversation(responseConversation);
-      console.log(languageConfig,currentLanguage)
-      if (!audioPlaying) {
+      console.log(languageConfig, currentLanguage);
+      // if (!audioPlaying) {
         setAudioPlaying(true);
         textToSpeech(
           responseConversation[responseConversation.length - 1].content,
@@ -71,7 +71,7 @@ export async function createCompletion(
             source.start();
           });
         });
-      }
+      // }
     }
     // console.log('g',response,messages)
   } catch (error) {
@@ -135,19 +135,19 @@ export default function Chat() {
   const [currentLanguage, setCurrentLanguage] = useState("English");
   const [regenerationPopUpOpen, setRegenerationPopUpOpen] = useState(false);
   const [recording, setRecording] = useState(false);
-
+  const [startPopUpOpen, setStartPopUpOpen] = useState(true);
   const chatDisplay = useRef(null);
 
-  useEffect(() => {
-    createCompletion(
-      conversation,
-      setConversation,
-      audioPlaying,
-      setAudioPlaying,
-      false,
-      "English"
-    );
-  }, []);
+  // useEffect(() => {
+  //   createCompletion(
+  //     conversation,
+  //     setConversation,
+  //     audioPlaying,
+  //     setAudioPlaying,
+  //     false,
+  //     "English"
+  //   );
+  // }, []);
 
   useEffect(() => {
     chatDisplay.current.scrollTop = 999;
@@ -213,6 +213,23 @@ export default function Chat() {
             setRegenerationPopUpOpen(false);
           }}
         />
+        {startPopUpOpen ? (
+          <StartOverlay
+            setStartPopUpOpen={setStartPopUpOpen}
+            onPressHandler={() =>
+              createCompletion(
+                conversation,
+                setConversation,
+                audioPlaying,
+                setAudioPlaying,
+                false,
+                "English"
+              )
+            }
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

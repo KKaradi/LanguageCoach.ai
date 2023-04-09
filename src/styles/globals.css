@@ -290,6 +290,18 @@ nav a:hover::after {
   animation: fadeIn 0.5s ease-out forwards;
 }
 
+.big-red-button {
+  background:#db4137;
+  padding: 0.25rem 1rem ;
+  border-radius: 0.7rem;
+  border: none;
+  color: white;
+  width: 20vw;
+  height: 10vh;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+}
+
 .popup {
   background-color: white;
   padding: 20px;
