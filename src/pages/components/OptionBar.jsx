@@ -1,7 +1,7 @@
 import speechToText from "@/pages/api/stt";
 import {useState} from "react";
 
-export default function OptionBar() {
+export default function OptionBar(textboxref) {
     const [recording, setRecording] = useState(false);
 
     return (
@@ -11,9 +11,7 @@ export default function OptionBar() {
                 speechToText("en-us", setRecording);
                 setTimeout(() => {setRecording(true)}, 800);
             }}>{recording ? "Recording..." : "Record"}</button>
-            <input type="submit" value="Send" onClick={(e) => {
-                e.preventDefault();
-            }} />
+            <input type="submit" value="Send"  />
         </div>
     )
 }

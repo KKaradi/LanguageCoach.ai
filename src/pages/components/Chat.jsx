@@ -11,7 +11,7 @@ export async function submitMessage(message,conversation,setConversation){
     createCompletion(conversation,setConversation)
 }
 
-export  async function createCompletion(conversation, setConversation) {
+export async function createCompletion(conversation, setConversation) {
   console.log("creating completion");
   try {
     console.log('messages before',conversation)
@@ -61,7 +61,7 @@ export default function Chat() {
           ))}
         </div>
         <div className="userInputField">
-          <InputField />
+          <InputField onSubmit = {(message)=>{submitMessage(message,conversation,setConversation)}} />
         </div>
       </div>
     </>
