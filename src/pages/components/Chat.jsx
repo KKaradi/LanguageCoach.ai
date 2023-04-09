@@ -5,7 +5,6 @@ import { languageConfig } from "../utils/language-config.js";
 import RegenerationPopUp from "./RegenerationPopUp.jsx";
 import { useState, useEffect, useRef } from "react";
 import textToSpeech from "@/pages/api/tts";
-import {languageConfig} from "../utils/language-config.js"
 import SettingBox from './SettingBox.jsx'
 
 export async function submitMessage(message, conversation, setConversation, audioPlaying, setAudioPlaying, continuousConversation){
