@@ -5,8 +5,7 @@ import InputField from "./InputField.jsx";
 import { useState, useEffect } from "react";
 
 
-
-export async function submitMessage(message,conversation,setConversation){
+export async function submitMessage(message, conversation, setConversation){
     conversation.push({role:"user",content:message})
     createCompletion(conversation,setConversation)
 }
