@@ -16,7 +16,7 @@ export async function submitMessage(
   continuousConversation,
   currentLanguage
 ) {
-  
+
   conversation.push({ role: "user", content: message });
   createCompletion(
     conversation,
@@ -29,6 +29,7 @@ export async function submitMessage(
 }
 
 export async function createCompletion(
+
   conversation,
   setConversation,
   audioPlaying,
@@ -74,6 +75,7 @@ export async function createCompletion(
         });
       // }
     }
+    console.log('l')
     // console.log('g',response,messages)
   } catch (error) {
     console.error(error);
