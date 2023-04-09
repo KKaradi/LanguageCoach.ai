@@ -7,13 +7,14 @@ export default function InputField(onSubmit) {
 
     function onSubmitHandler(e) {
         e.preventDefault(); 
-        // onSubmit.onSubmit(textbox.current.value)
+        onSubmit.onSubmit(textbox.current.value)
+        textbox.current.value = "";
         console.log(textbox.current.value)
     }
     return ( 
         <form onSubmit={onSubmitHandler} action="">
-            <textarea ref={textbox} name="" id="" cols="30" rows="10" placeholder='Type something...' />
-            <OptionBar/>
+            <textarea ref={textbox} name="" id="" cols="30" rows="10" />
+            <OptionBar submitHandler={onSubmit}/>
         </form>
     )
 }

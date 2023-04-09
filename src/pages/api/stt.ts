@@ -1,6 +1,8 @@
+import {submitMessage, } from "@/pages/components/Chat";
+
 const sdk = require("microsoft-cognitiveservices-speech-sdk");
 
-export default async function speechToText(language, setRecording) {
+export default async function speechToText(language, setRecording, onText) {
     const speechConfig = sdk.SpeechConfig.fromSubscription("8a573047d17e4d4b9d7308d74ea7dbbb", "eastus");
     speechConfig.speechRecognitionLanguage = language;
 
@@ -10,7 +12,7 @@ export default async function speechToText(language, setRecording) {
     speechRecognizer.recognizeOnceAsync(result => {
         switch (result.reason) {
             case sdk.ResultReason.RecognizedSpeech:
-                console.log(`TEXT: ${result.text}`);
+                onText(result.text);
                 setRecording(false);
                 break;
             case sdk.ResultReason.NoMatch:
