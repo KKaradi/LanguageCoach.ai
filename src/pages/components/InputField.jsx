@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import OptionBar from './OptionBar.jsx'
 
 
-export default function InputField({submitHandler, languageCode}) {
+export default function InputField({submitHandler, languageCode, recordingState}) {
     const textbox = useRef(null);
 
     function onSubmitHandler(e) {
@@ -18,8 +18,8 @@ export default function InputField({submitHandler, languageCode}) {
 
     return ( 
         <form onSubmit={onSubmitHandler} onReset={onResetHandler} action="">
-            <textarea ref={textbox} name="" id="" cols="30" rows="10" />
-            <OptionBar submitHandler={submitHandler} languageCode={languageCode}/>
+            <textarea placeholder='Type something...' ref={textbox} name="" id="" cols="30" rows="10" />
+            <OptionBar submitHandler={submitHandler} languageCode={languageCode} recordingState={recordingState}/>
         </form>
     )
 }
