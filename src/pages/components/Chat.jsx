@@ -51,7 +51,7 @@ export async function createCompletion(
     if (responseConversation !== undefined) {
       setConversation(responseConversation);
       console.log(languageConfig, currentLanguage);
-      if (!audioPlaying) {
+      // if (!audioPlaying) {
         setAudioPlaying(true);
         textToSpeech(
           responseConversation[responseConversation.length - 1].content,
@@ -71,7 +71,7 @@ export async function createCompletion(
             source.start();
           });
         });
-      }
+      // }
     }
     // console.log('g',response,messages)
   } catch (error) {
