@@ -95,7 +95,6 @@ nav a:hover::after {
   /* width: 25px; */
 }
 
-
 .optionList>* {
   margin-block: 3px;
 }
@@ -219,3 +218,35 @@ nav a:hover::after {
   background-color: #4a4acd;
 }
 
+@media only screen and (max-width: 1310px) {
+  .languageDropdown {
+    left: 0%;
+    top: -8%;
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+
+  .languageDropdown .styledContainer {
+    margin: 0;
+  }
+
+  .chat{
+    margin-top: 3rem;
+  }
+
+  .currentOption {
+    margin-right: 1rem;
+    width: 3rem;
+  }
+
+  .optionList {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    
+  }
+  
+  
+}
