@@ -72,7 +72,7 @@ export default function Chat() {
       </div>
       <div className="userInputField">
         <InputField
-          languageCode={languageConfig[currentLanguage]}
+          languageCode={languageConfig[currentLanguage].code}
           submitHandler={(message) => {
             submitMessage(message, conversation, setConversation);
           }}
