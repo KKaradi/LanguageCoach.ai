@@ -12,7 +12,7 @@ export default function OptionBar(submitHandler) {
         <div className="optionBar">
             <button onClick={(e) => {
                 e.preventDefault();
-                speechToText("en-us", setRecording, onText);
+                speechToText("es-CO", setRecording, onText);
                 setTimeout(() => {setRecording(true)}, 800);
             }}>{recording ? "Recording..." : "Record"}</button>
             <input type="submit" value="Send" />

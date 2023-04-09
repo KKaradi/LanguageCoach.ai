@@ -10,6 +10,7 @@ export async function submitMessage(message, conversation, setConversation){
     createCompletion(conversation,setConversation)
 }
 
+
 export async function createCompletion(conversation, setConversation) {
   console.log("creating completion");
   try {
