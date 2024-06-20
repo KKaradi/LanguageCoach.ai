@@ -4,7 +4,7 @@ import { Configuration, OpenAIApi } from "openai";
 import textToSpeech from "@/pages/api/tts";
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.OPEN_AI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
